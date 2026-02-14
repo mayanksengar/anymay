@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Ananya — From Mayank</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Petit+Formal+Script&display=swap');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --blush: #fce4ec;
+    --rose: #e8919f;
+    --deep-rose: #c94c6b;
+    --crimson: #9b1b30;
+    --burgundy: #7a1a2e;
+    --pink-bg: #fdf0f3;
+    --pink-mid: #f8d7de;
+    --pink-soft: #fbeaef;
+    --champagne: #fdf6f0;
+    --gold: #b8860b;
+    --gold-light: #c9a96e;
+    --text-dark: #3d1a28;
+    --text-mid: #6b3a4a;
+    --soft-shadow: rgba(201,76,107,0.08);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Cormorant Garamond', serif;
+    background: var(--pink-bg);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ─── Preloader ─── */
+  #preloader {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--pink-bg);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    transition: opacity 1s ease, visibility 1s ease;
+  }
+  #preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  #preloader .heart-svg {
+    width: 60px; height: 60px;
+    animation: heartbeat 1.2s ease-in-out infinite;
+  }
+  #preloader p {
+    font-family: 'Petit Formal Script', cursive;
+    font-size: 1.2rem;
+    color: var(--deep-rose);
+    margin-top: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.5s forwards;
+  }
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.25); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.15); }
+  }
+
+  /* ─── Petal rain ─── */
+  #petals-canvas {
+    position: fixed; inset: 0; z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ─── Sections ─── */
+  section {
+    position: relative;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 4rem 2rem;
+    z-index: 1;
+  }
+
+  /* ─── Hero ─── */
+  #hero {
+    background: radial-gradient(ellipse at 50% 80%, var(--pink-mid) 0%, var(--pink-bg) 70%);
+    text-align: center;
+  }
+  #hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(201,76,107,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-subtitle {
+    font-family: 'Petit Formal Script', cursive;
+    font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    opacity: 0;
+    animation: fadeUp 1.2s 1.5s forwards;
+  }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 10vw, 7rem);
+    font-weight: 700;
+    font-style: italic;
+    color: var(--deep-rose);
+    line-height: 1.1;
+    margin: 0.5rem 0;
+    opacity: 0;
+    animation: fadeUp 1.2s 2s forwards;
+    text-shadow: 0 0 80px rgba(201,76,107,0.15);
+  }
+  .hero-tagline {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    font-weight: 300;
+    color: var(--gold-light);
+    margin-top: 0.5rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 1.2s 2.5s forwards;
+  }
+  .scroll-hint {
+    position: absolute; bottom: 2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    color: var(--rose);
+    letter-spacing: 0.2em;
+    text-align: center;
+    opacity: 0;
+    animation: fadeUp 1s 3.5s forwards, float 3s 4s ease-in-out infinite;
+  }
+  .scroll-hint span {
+    display: block; margin-top: 0.5rem;
+    animation: scrollArrow 2s infinite;
+    font-size: 1.2rem;
+  }
+
+  /* ─── Story sections ─── */
+  .story-section { background: var(--pink-bg); text-align: center; }
+  .chapter-num {
+    font-family: 'Petit Formal Script', cursive;
+    font-size: 0.9rem;
+    color: var(--gold);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .story-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 3.5rem);
+    font-style: italic;
+    color: var(--deep-rose);
+    margin-bottom: 1.5rem;
+    max-width: 700px;
+  }
+  .rose-icon {
+    font-size: clamp(3rem, 8vw, 5rem);
+    margin: 1rem 0 0.5rem;
+    filter: drop-shadow(0 4px 12px rgba(201,76,107,0.2));
+  }
+  .rose-label {
+    font-family: 'Petit Formal Script', cursive;
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 0.5rem;
+  }
+  .story-section blockquote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text-mid);
+    max-width: 600px;
+    line-height: 1.8;
+    padding: 2rem;
+    border-left: 2px solid var(--gold);
+    text-align: left;
+    margin: 1.5rem 0;
+    background: rgba(255,255,255,0.4);
+    border-radius: 0 8px 8px 0;
+  }
+
+  /* ─── Divider ─── */
+  .divider {
+    width: 120px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 2rem auto;
+  }
+
+  /* ─── Bridge ─── */
+  #bridge {
+    background: linear-gradient(180deg, var(--pink-bg) 0%, var(--pink-mid) 50%, var(--pink-bg) 100%);
+    text-align: center;
+  }
+  .intimate-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 3vw, 1.6rem);
+    font-weight: 300;
+    line-height: 2;
+    max-width: 650px;
+    color: var(--text-dark);
+  }
+  .intimate-text em { color: var(--deep-rose); font-style: italic; }
+  .intimate-text strong { color: var(--gold); font-weight: 600; }
+
+  /* ─── The Question ─── */
+  #question {
+    background: radial-gradient(ellipse at 50% 50%, rgba(201,76,107,0.08) 0%, var(--pink-bg) 70%);
+    text-align: center;
+    min-height: 100vh;
+  }
+  .q-pre {
+    font-family: 'Petit Formal Script', cursive;
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  #question h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 8vw, 5.5rem);
+    font-weight: 700;
+    font-style: italic;
+    color: var(--deep-rose);
+    text-shadow: 0 0 80px rgba(201,76,107,0.12);
+    margin-bottom: 0.5rem;
+  }
+  .q-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-style: italic;
+    color: var(--rose);
+    margin-bottom: 3rem;
+  }
+
+  /* ─── Buttons ─── */
+  .btn-row {
+    display: flex; gap: 2rem;
+    align-items: center; justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    min-height: 100px;
+  }
+  .btn-yes {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    padding: 1rem 3.5rem;
+    background: linear-gradient(135deg, var(--deep-rose), var(--crimson));
+    color: #fff;
+    border: 1px solid var(--gold);
+    border-radius: 0;
+    cursor: pointer;
+    letter-spacing: 0.15em;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-yes::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--crimson), var(--burgundy));
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .btn-yes:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(201,76,107,0.3);
+    border-color: var(--gold-light);
+  }
+  .btn-yes:hover::before { opacity: 1; }
+  .btn-yes span { position: relative; z-index: 1; }
+
+  .btn-no {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    padding: 0.8rem 2.5rem;
+    background: rgba(255,255,255,0.5);
+    color: var(--deep-rose);
+    border: 1px solid rgba(201,76,107,0.3);
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    transition: all 0.3s;
+  }
+
+  #no-msg {
+    margin-top: 1.5rem;
+    color: var(--deep-rose);
+    font-style: italic;
+    font-size: 1.1rem;
+    opacity: 0;
+    transition: opacity 0.5s;
+    min-height: 1.5em;
+  }
+
+  /* ─── Celebration ─── */
+  #celebration {
+    position: fixed; inset: 0; z-index: 100;
+    background: linear-gradient(135deg, var(--pink-bg), var(--pink-mid), var(--blush));
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    opacity: 0; visibility: hidden;
+    transition: all 1s ease;
+  }
+  #celebration.active { opacity: 1; visibility: visible; }
+  #celebration h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 8vw, 5rem);
+    font-style: italic;
+    color: var(--deep-rose);
+    margin-bottom: 1rem;
+    text-shadow: 0 0 60px rgba(201,76,107,0.15);
+  }
+  .anymay {
+    font-family: 'Petit Formal Script', cursive;
+    font-size: clamp(1.5rem, 5vw, 3rem);
+    color: var(--gold);
+    margin: 1rem 0;
+  }
+  #celebration p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    color: var(--text-dark);
+    max-width: 550px;
+    line-height: 1.8;
+    font-weight: 300;
+  }
+  #fireworks-canvas {
+    position: fixed; inset: 0; z-index: 99;
+    pointer-events: none;
+  }
+
+  /* ─── Animations ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes scrollArrow {
+    0%, 100% { transform: translateY(0); opacity: 0.5; }
+    50% { transform: translateY(6px); opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.2s; }
+  .reveal-delay-2 { transition-delay: 0.4s; }
+  .reveal-delay-3 { transition-delay: 0.6s; }
+
+  @media (max-width: 600px) {
+    section { padding: 3rem 1.5rem; }
+    .btn-row { gap: 1.2rem; }
+    blockquote { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div id="preloader">
+  <svg class="heart-svg" viewBox="0 0 64 64">
+    <path fill="#c94c6b" d="M32 56S4 36 4 20C4 10 12 4 20 4c5.5 0 9.8 3 12 7 2.2-4 6.5-7 12-7 8 0 16 6 16 16C60 36 32 56 32 56z"/>
+  </svg>
+  <p>A story written in roses...</p>
+</div>
+
+<canvas id="petals-canvas"></canvas>
+
+<section id="hero">
+  <p class="hero-subtitle">a valentine's story for</p>
+  <h1 class="hero-name">Ananya</h1>
+  <p class="hero-tagline">from the heart of Mayank</p>
+  <div class="scroll-hint">Scroll to unfold our story<span>&#8595;</span></div>
+</section>
+
+<section class="story-section" id="chapter1">
+  <div class="chapter-num reveal">chapter one</div>
+  <h2 class="reveal reveal-delay-1">Yesterday, a whisper in pink&#8230;</h2>
+  <div class="rose-icon reveal reveal-delay-2">&#127801;</div>
+  <p class="rose-label reveal reveal-delay-2" style="color:var(--rose);">a bouquet of pink roses</p>
+  <div class="divider reveal reveal-delay-3"></div>
+  <blockquote class="reveal reveal-delay-3">
+    &#8220;Each rose, a reason I&#8217;m grateful you&#8217;re mine &#8212; and still, they fall short. This is only the beginning, Ananya.&#8221;
+  </blockquote>
+</section>
+
+<section class="story-section" id="chapter2">
+  <div class="chapter-num reveal">chapter two</div>
+  <h2 class="reveal reveal-delay-1">Today, a declaration in red&#8230;</h2>
+  <div class="rose-icon reveal reveal-delay-2">&#127801;&#127801;</div>
+  <p class="rose-label reveal reveal-delay-2" style="color:var(--crimson);">a sea of red roses</p>
+  <div class="divider reveal reveal-delay-3"></div>
+  <blockquote class="reveal reveal-delay-3">
+    &#8220;I told you it was just the beginning. And still, no number of roses could match what I feel for you. This year, we only grow closer, Ananya.&#8221;
+  </blockquote>
+</section>
+
+<section id="bridge">
+  <div class="intimate-text reveal">
+    But flowers wilt, Ananya.<br><br>
+    What I feel for you <em>doesn&#8217;t</em>.<br><br>
+    You &#8212; with your <strong>heart of gold</strong> that holds everyone gently,<br>
+    your warmth that turns ordinary days into something <em>sacred</em>,<br>
+    your presence that makes the whole world feel like it&#8217;s<br>
+    finally in the right place.<br><br>
+    <span style="color:var(--gold); font-family:'Petit Formal Script',cursive; font-size:0.95em;">
+      You are my favourite chapter in every story I&#8217;ll ever live.
+    </span>
+  </div>
+</section>
+
+<section id="question">
+  <p class="q-pre reveal">So here it is, the reason for everything&#8230;</p>
+  <h2 class="reveal reveal-delay-1">Will You Be<br>My Valentine?</h2>
+  <p class="q-name reveal reveal-delay-2">&#8212; Ananya Singh &#8212;</p>
+  <div class="btn-row reveal reveal-delay-3">
+    <button class="btn-yes" id="btnYes"><span>Yes, Forever</span></button>
+    <button class="btn-no" id="btnNo">Maybe Not&#8230;</button>
+  </div>
+  <p id="no-msg"></p>
+</section>
+
+<canvas id="fireworks-canvas"></canvas>
+<div id="celebration">
+  <h2>She Said Yes!</h2>
+  <div class="anymay">AnyMay</div>
+  <div class="divider" style="margin:1.5rem auto;"></div>
+  <p>
+    From pink roses to red,<br>
+    to a love story that will never stop unfolding.<br><br>
+    <em style="color:var(--gold);">This is still only the beginning.</em><br><br>
+    Happy Valentine&#8217;s Day, my Ananya.<br>
+    &#8212; Your Mayank
+  </p>
+</div>
+
+<script>
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    document.getElementById('preloader').classList.add('hidden');
+  }, 2500);
+});
+
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+
+(function() {
+  var canvas = document.getElementById('petals-canvas');
+  var ctx = canvas.getContext('2d');
+  var W, H, petals = [];
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  var petalColors = ['#f8b4c8','#f2c4ce','#e8919f','#f5a0b5','#fbd0dc'];
+  function Petal(init) {
+    this.x = Math.random() * W; this.y = init ? Math.random() * -H : -20;
+    this.size = Math.random() * 8 + 4; this.speedY = Math.random() * 1.2 + 0.4;
+    this.speedX = Math.random() * 0.8 - 0.4; this.rotation = Math.random() * Math.PI * 2;
+    this.rotSpeed = (Math.random() - 0.5) * 0.03; this.opacity = Math.random() * 0.4 + 0.15;
+    this.color = petalColors[Math.floor(Math.random() * petalColors.length)];
+    this.sway = Math.random() * Math.PI * 2; this.swaySpeed = Math.random() * 0.015 + 0.005;
+  }
+  Petal.prototype.update = function() {
+    this.y += this.speedY; this.sway += this.swaySpeed;
+    this.x += this.speedX + Math.sin(this.sway) * 0.5;
+    this.rotation += this.rotSpeed;
+    if (this.y > H + 20) { this.x = Math.random() * W; this.y = -20; }
+  };
+  Petal.prototype.draw = function() {
+    ctx.save(); ctx.translate(this.x, this.y); ctx.rotate(this.rotation);
+    ctx.globalAlpha = this.opacity; ctx.fillStyle = this.color;
+    ctx.beginPath(); ctx.ellipse(0, 0, this.size, this.size * 0.6, 0, 0, Math.PI * 2);
+    ctx.fill(); ctx.restore();
+  };
+  for (var i = 0; i < 40; i++) petals.push(new Petal(true));
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+    for (var i = 0; i < petals.length; i++) { petals[i].update(); petals[i].draw(); }
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+var btnNo = document.getElementById('btnNo');
+var noMsg = document.getElementById('no-msg');
+var noMessages = [
+  "Nice try... but no escape", "You really thought?",
+  "That button doesn't work for you, Ananya", "The universe won't let you click that",
+  "Nope. You're stuck with me.", "My heart doesn't accept 'no'",
+  "Try again... actually, don't", "Even this button knows we belong together"
+];
+var noIndex = 0;
+function runAway() {
+  var vw = window.innerWidth, vh = window.innerHeight;
+  var bw = btnNo.offsetWidth, bh = btnNo.offsetHeight;
+  var newX = Math.random() * (vw - bw - 40) + 20;
+  var newY = Math.random() * (vh - bh - 40) + 20;
+  btnNo.style.position = 'fixed';
+  btnNo.style.left = newX + 'px'; btnNo.style.top = newY + 'px';
+  btnNo.style.zIndex = '50';
+  btnNo.style.transition = 'left 0.3s ease, top 0.3s ease';
+  noMsg.textContent = noMessages[noIndex % noMessages.length];
+  noMsg.style.opacity = '1'; noIndex++;
+  setTimeout(function() { noMsg.style.opacity = '0'; }, 2200);
+}
+btnNo.addEventListener('mouseenter', runAway);
+btnNo.addEventListener('touchstart', function(e) { e.preventDefault(); runAway(); });
+
+document.getElementById('btnYes').addEventListener('click', function() {
+  document.getElementById('celebration').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  launchFireworks();
+});
+
+function launchFireworks() {
+  var canvas = document.getElementById('fireworks-canvas');
+  var ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  canvas.style.zIndex = '101';
+  var particles = [], hearts = [];
+  var colors = ['#f2c4ce','#e8919f','#c94c6b','#c9a96e','#e8d5a8','#ff6b8a','#ffd700','#f8b4c8'];
+  function burst(x, y) {
+    for (var i = 0; i < 80; i++) {
+      var angle = (Math.PI * 2 / 80) * i, speed = Math.random() * 5 + 2;
+      particles.push({ x:x, y:y, vx:Math.cos(angle)*speed, vy:Math.sin(angle)*speed,
+        life:1, decay:Math.random()*0.015+0.008,
+        color:colors[Math.floor(Math.random()*colors.length)], size:Math.random()*3+1 });
+    }
+  }
+  setTimeout(function(){burst(canvas.width*0.3,canvas.height*0.3)},200);
+  setTimeout(function(){burst(canvas.width*0.7,canvas.height*0.4)},600);
+  setTimeout(function(){burst(canvas.width*0.5,canvas.height*0.25)},1000);
+  setTimeout(function(){burst(canvas.width*0.2,canvas.height*0.5)},1400);
+  setTimeout(function(){burst(canvas.width*0.8,canvas.height*0.3)},1800);
+  setTimeout(function(){burst(canvas.width*0.5,canvas.height*0.5)},2200);
+  var heartInterval = setInterval(function() {
+    for (var i=0;i<3;i++) hearts.push({x:Math.random()*canvas.width,y:-20,
+      size:Math.random()*14+8,speed:Math.random()*2+1,opacity:Math.random()*0.7+0.3,
+      color:colors[Math.floor(Math.random()*colors.length)],sway:Math.random()*Math.PI*2});
+  },150);
+  setTimeout(function(){clearInterval(heartInterval)},8000);
+  function animate() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(var i=particles.length-1;i>=0;i--){
+      var p=particles[i]; p.x+=p.vx; p.y+=p.vy; p.vy+=0.04; p.life-=p.decay;
+      if(p.life<=0){particles.splice(i,1);continue;}
+      ctx.save();ctx.globalAlpha=p.life;ctx.fillStyle=p.color;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();ctx.restore();
+    }
+    for(var j=hearts.length-1;j>=0;j--){
+      var h=hearts[j]; h.y+=h.speed; h.sway+=0.02; h.x+=Math.sin(h.sway)*0.8;
+      ctx.save();ctx.globalAlpha=h.opacity;ctx.fillStyle=h.color;
+      ctx.font=h.size+'px serif';ctx.fillText('\u2665',h.x,h.y);ctx.restore();
+      if(h.y>canvas.height+20) hearts.splice(j,1);
+    }
+    if(particles.length>0||hearts.length>0) requestAnimationFrame(animate);
+  }
+  animate();
+}
+</script>
+</body>
+</html>
